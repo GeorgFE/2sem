@@ -1,0 +1,105 @@
+#include<iostream>
+using namespace std;
+class ocheredb {
+private:
+    int* queueArr;
+    int start;//front
+    int konec;//rear
+    int maxsize;
+    int nelem;
+    //здесь идут методы,,,вставка,удаление,просмотр первого,печать очереди
+public:
+    ocheredb(int a) {//создание очереди 
+        maxsize = a;
+        queueArr = new int[maxsize];
+        start = 0;
+        konec = -1;
+        nelem = 0;
+    }
+    void insert(int j) {//добавление элемента
+        if (konec == maxsize - 1) {
+            konec = -1;
+            nelem = 0;
+        }
+        queueArr[++konec] = j;
+        nelem++;
+    }
+    void remove(){
+        int temp = queueArr[start++];
+    if (start == maxsize)
+        start = 0;
+    nelem--;
+    }
+    void prosmstart() {
+        cout<< queueArr[start]<<endl;
+    }
+    void pechat() {
+        if (nelem == 0) {
+            cout << "zdes nety!";
+            return;
+        }
+        if (start > konec) {
+            int j = start;
+                while (j < konec) {
+                    cout << queueArr[j] << endl;
+                    j++;
+                }
+            j = 0;
+            while (j <= konec) {
+                cout << queueArr[j] << endl;
+                j++;
+            }
+        }
+        else if (start < konec) {
+            for (int i = start; i <= konec; i++) {
+                cout << i + 1 << ": " << queueArr[i] << endl;
+            }
+
+        }
+        else if (nelem == 1)
+            cout << "1: " << queueArr[start];
+        cout << endl;
+        return;
+    }
+
+
+
+};
+int main(int argc,char **argv) {
+    
+    int choice = -1;
+    int number;
+    cout << "vvedite kol-vo elementov v ocheredi";
+    cin >> number;
+    ocheredb queue(number);
+    
+    cout << "GUI:1-insert,2-delete,3-prosm first,4-prosm ochered";
+    while (choice<5) {
+        cin >> choice;
+        switch (choice)
+        {
+        case 1:
+            cout << "vvedite elem";
+            cin >> number;
+            queue.insert(number);
+            break;
+        case 2:
+            
+            queue.remove();
+            break;
+        case 3:
+            queue.prosmstart();
+            break;
+        case 4:
+            queue.pechat();
+            break;
+        }
+
+
+
+
+    }
+    system("pause");
+    return 0;
+
+}
